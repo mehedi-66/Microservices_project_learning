@@ -28,7 +28,7 @@ namespace PlatformServices.Controllers
             return Ok(_mapper.Map<IEnumerable<PlatformReadDto>>(platformItem));
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetPlatformById")]
         public ActionResult<PlatformReadDto> GetPlatformById(int id) { 
             
             var platformItem = _platformRepo.GetPlatformById(id);
@@ -51,7 +51,7 @@ namespace PlatformServices.Controllers
 
             var platformReadDto = _mapper.Map<PlatformReadDto>(platformModel);
 
-            return Ok(platformReadDto);
+            return CreatedAtRoute(nameof(GetPlatformById), new {Id =  platformReadDto.Id}, platformReadDto);
         }
     }
 }
